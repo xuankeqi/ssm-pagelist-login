@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.hc.ssm.dao.EmployeeMapperVo">
+	<resultMap id="BaseResultMap" type="cn.hc.ssm.entities.Employee">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="emp_name" property="empName" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="INTEGER" />
+		<result column="salary" property="salary" jdbcType="DOUBLE" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="dept_id" property="deptId" jdbcType="INTEGER" />
+		<association property="dept" javaType="cn.hc.ssm.entities.Department">
+			<id column="did" property="id"/>
+			<result column="dept_name" property="deptName"/>
+		</association>
+		<!-- 
+		<result column="did" property="dept.id"/>
+		<result column="dept_name" property="dept.deptName"/>
+		 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		e.id, emp_name, gender, salary, email, dept_id
+	</sql>
+	
+	<select id="queryPageBean" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List"></include>,
+			d.`id` did,
+			d.`dept_name`
+		FROM
+			ssm_employee e
+		LEFT JOIN ssm_department d
+			ON e.`dept_id` = d.`id`
+		limit #{pageNo},#{pageSize}
+	</select>
+
+	<select id="getCount" resultType="int">
+		SELECT
+			count(e.id)
+		FROM
+			ssm_employee e
+		LEFT JOIN ssm_department d
+			ON e.`dept_id` = d.`id`
+	</select>
+</mapper>

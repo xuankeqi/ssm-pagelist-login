@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 全局设置项 -->
+	<settings>
+		<!--显示的指定每个我们需要更改的配置的值，即使他是默认的。防止版本更新带来的问题  -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<!-- 懒加载 -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+	</settings>
+
+</configuration>
